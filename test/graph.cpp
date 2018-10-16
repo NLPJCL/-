@@ -96,7 +96,7 @@ void graph::Kruskal()
 			all_cost.push_back(make_pair(make_pair(w, w0), cost[w][w0]));
 		}
 	}
-	sort(all_cost.begin(), all_cost.end(), CmpByValue);
+	sort(all_cost.begin(), all_cost.end(), CmpByValue);//从小到大排序。
 	for (auto w = all_cost.begin(); w != all_cost.end(); w++)
 	{
 		min_cost.push_back(w->first);

@@ -38,4 +38,6 @@ private:
 	QGraphicsTextItem cost[WIDTH*HEIGHT];
 private slots:
 	void timeout();
+	void prim();
+	void Kruskal();
 };

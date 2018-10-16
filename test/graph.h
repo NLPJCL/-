@@ -9,6 +9,7 @@
 using namespace std;
 class graph
 {
+	friend class test;
 public:
 	graph();
 	pair<vector<vector<double>>, vector<string>> get_graph();

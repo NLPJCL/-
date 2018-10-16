@@ -63,12 +63,11 @@ test::test(QWidget *parent) :
 	this->resize(13* GRID_SIZE + 20, 13 * GRID_SIZE + 20);//设置屏幕的长宽。
 	this->setScene(&scene_);//将view和scene连接起来。
 	connect(timer_, SIGNAL(timeout()), this, SLOT(timeout()));//将定时器对象与槽机制关联起来。
+	connect(ui->P, SIGNAL(clicked(bool)), this, SLOT(prim()));
+	connect(ui->K, SIGNAL(clicked(bool)), this, SLOT(Kruskal()));
 	//绘制图
-	this->setWindowTitle(QString::fromLocal8Bit("东校区最小生成树"));
+	//this->setWindowTitle(QString::fromLocal8Bit("东校区最小生成树"));
 	paint_graph();
-
-	graph_.Kruskal();
-	graph_.Prim();
 	for (QGraphicsTextItem& l : position)
 	{
 		scene_.addItem(&l);//增加grid_meridian的成员到scene中。
@@ -81,11 +80,20 @@ test::test(QWidget *parent) :
 	{
 		scene_.addItem(&l);
 	}
-	timer_->start(500);
 }
 void test::timeout()
 {
-	pair<int,int> path=graph_.get_kpath();
+	pair<int, int> path;
+	if (graph_.kmin_cost_tree.size() != 0)
+	{
+		path = graph_.get_kpath();
+
+	}
+	else
+	{
+	path = graph_.get_ppath();
+	}
+
 	if (path.first==-1)//如果堆为空，结束这个定时器。
 	{
 		timer_->stop();
@@ -167,4 +175,17 @@ void test::paint_graph()
 			}
 		}
 	}
+}
+
+void test::prim()
+{
+	graph_.Prim();
+	timer_->start(500);
+
+}
+
+void test::Kruskal()
+{
+	graph_.Kruskal();
+	timer_->start(1000);
 }
