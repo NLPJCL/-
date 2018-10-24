@@ -13,6 +13,7 @@
 #include<vector>
 #include<QString>
 #include<set>
+#include"table.h"
 namespace Ui {
 	class test;
 }
@@ -29,7 +30,7 @@ public:
 	QGraphicsScene scene_;//场景，即是允许我们添加图形的空间，相当于整个世界；
 	QTimer* timer_;
 	graph graph_;
-	QPoint points_[HEIGHT][WIDTH];
+	QPoint points_[WIDTH][HEIGHT];
 	void paint_graph();
 private:
 	Ui::testClass *ui;

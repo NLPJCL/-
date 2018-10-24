@@ -34,7 +34,7 @@ set<vector<int>> Nqueens(int n)
 			if (k == n - 1)
 			{
 				Z.insert(X);
-				if (Z.size()==8)
+				if (Z.size() == 8)
 				{
 					return Z;
 				}
@@ -55,12 +55,12 @@ set<vector<int>> Nqueens(int n)
 }
 test::test(QWidget *parent) :
 	QGraphicsView(parent),
-	ui(new Ui::testClass),graph_()
+	ui(new Ui::testClass), graph_()
 {
 	ui->setupUi(this);//将ui和view连接起来。
 	timer_ = new QTimer(this);//声明一个定时器对象。
 	scene_.setParent(this);
-	this->resize(13* GRID_SIZE + 20, 13 * GRID_SIZE + 20);//设置屏幕的长宽。
+	this->resize(13 * GRID_SIZE + 20, 13 * GRID_SIZE + 20);//设置屏幕的长宽。
 	this->setScene(&scene_);//将view和scene连接起来。
 	connect(timer_, SIGNAL(timeout()), this, SLOT(timeout()));//将定时器对象与槽机制关联起来。
 	connect(ui->P, SIGNAL(clicked(bool)), this, SLOT(prim()));
@@ -91,10 +91,10 @@ void test::timeout()
 	}
 	else
 	{
-	path = graph_.get_ppath();
+		path = graph_.get_ppath();
 	}
 
-	if (path.first==-1)//如果堆为空，结束这个定时器。
+	if (path.first == -1)//如果堆为空，结束这个定时器。
 	{
 		timer_->stop();
 		for (QGraphicsLineItem &l : line)
@@ -112,7 +112,7 @@ void test::timeout()
 		QGraphicsLineItem *line = new QGraphicsLineItem();
 		QGraphicsTextItem *cost = new QGraphicsTextItem();
 		line->setLine(points_[path.first][z_position[path.first]].x(), points_[path.first][z_position[path.first]].y(),
-		points_[path.second][z_position[path.second]].x(), points_[path.second][z_position[path.second]].y());
+			points_[path.second][z_position[path.second]].x(), points_[path.second][z_position[path.second]].y());
 		QPen pen;
 		pen.setColor(Qt::red);
 		pen.setWidth(3);
@@ -131,12 +131,12 @@ void test::paint_graph()
 {
 	pair<vector<vector<double>>, vector<string>> w = graph_.get_graph();
 	graph_cost = w.first;
-	vector<string> position_name= w.second;
+	vector<string> position_name = w.second;
 
 	//把13*13个点都找好了。
-	for (int y = 0; y <  graph_cost.size(); ++y)
+	for (int y = 0; y < graph_cost.size(); ++y)
 	{
-		for (int x = 0; x <  graph_cost.size(); ++x)
+		for (int x = 0; x < graph_cost.size(); ++x)
 		{
 			int xvalue = 10 + x * GRID_SIZE;
 			int yvalue = 10 + y * GRID_SIZE;
@@ -156,22 +156,22 @@ void test::paint_graph()
 		z++;
 	}
 	z_position = *z;
-	for (int i=0;i<z->size();i++)
+	for (int i = 0; i<z->size(); i++)
 	{
 		position[i].setPos(points_[i][(*z)[i]].x(), points_[i][(*z)[i]].y());
 
 	}
 	int q = 0;
-	for (int i = 0; i <  graph_cost.size(); ++i)
+	for (int i = 0; i < graph_cost.size(); ++i)
 	{
-		for (int j = 0; j <  graph_cost[i].size(); ++j)
+		for (int j = 0; j < graph_cost[i].size(); ++j)
 		{
 			if (graph_cost[i][j] != 10000)
 			{
-					line[q].setLine(points_[i][(*z)[i]].x(), points_[i][(*z)[i]].y(), points_[j][(*z)[j]].x(), points_[j][(*z)[j]].y());
-					cost[q].setPlainText(QString::number(graph_cost[i][j]));
-					cost[q].setPos((points_[i][(*z)[i]].x()+ points_[j][(*z)[j]].x() )/2, (points_[i][(*z)[i]].y()+ points_[j][(*z)[j]].y())/2);
-					q++;
+				line[q].setLine(points_[i][(*z)[i]].x(), points_[i][(*z)[i]].y(), points_[j][(*z)[j]].x(), points_[j][(*z)[j]].y());
+				cost[q].setPlainText(QString::number(graph_cost[i][j]));
+				cost[q].setPos((points_[i][(*z)[i]].x() + points_[j][(*z)[j]].x()) / 2, (points_[i][(*z)[i]].y() + points_[j][(*z)[j]].y()) / 2);
+				q++;
 			}
 		}
 	}
